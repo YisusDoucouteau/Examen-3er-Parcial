@@ -60,7 +60,6 @@ def create_app():
     def index():
         return render_template("index.html")
 
-    with app.app_context():
-        create_default_admin()
+    
 
     return app
