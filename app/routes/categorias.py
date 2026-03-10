@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from app import db
-from app.models import Categoria
+from app.models.categoria import Categoria
 
 categorias_bp = Blueprint('categorias', __name__, url_prefix='/categorias')
 
