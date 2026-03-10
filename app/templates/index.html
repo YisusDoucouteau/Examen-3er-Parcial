@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <h1 class="mb-3 text-primary">Sistema de Soporte Técnico</h1>
+
+        {% if current_user.is_authenticated %}
+            <p class="fs-5 mb-2">
+                Bienvenido, <strong>{{ current_user.nombre }}</strong>.
+            </p>
+
+            <p class="mb-3">
+                Tu rol es:
+                {% if current_user.rol == "admin" %}
+                    <span class="badge bg-danger">Administrador</span>
+                {% else %}
+                    <span class="badge bg-secondary">Usuario</span>
+                {% endif %}
+            </p>
+
+            <div class="mt-3">
+                {% if current_user.rol == "admin" %}
+                    <a href="{{ url_for('usuarios.listar_usuarios') }}" class="btn btn-primary me-2">Ir a Usuarios</a>
+                {% endif %}
+                <a href="{{ url_for('categorias.listar_categorias') }}" class="btn btn-success me-2">Ir a Categorías</a>
+                <a href="{{ url_for('tickets.listar_tickets') }}" class="btn btn-warning">Ir a Tickets</a>
+            </div>
+        {% else %}
+            <p class="fs-5">Bienvenido al sistema. Inicia sesión o regístrate para continuar.</p>
+            <div class="mt-3">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary me-2">Iniciar sesión</a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary">Registrarse</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
