@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Crear Ticket{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <h2 class="text-warning mb-4">Crear Ticket</h2>
+
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Título</label>
+                <input type="text" name="titulo" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea name="descripcion" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Estado</label>
+                    <select name="estado" class="form-select">
+                        <option value="abierto">Abierto</option>
+                        <option value="en proceso">En proceso</option>
+                        <option value="cerrado">Cerrado</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Prioridad</label>
+                    <select name="prioridad" class="form-select">
+                        <option value="baja">Baja</option>
+                        <option value="media" selected>Media</option>
+                        <option value="alta">Alta</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Categoría</label>
+                    <select name="categoria_id" class="form-select" required>
+                        <option value="">Seleccione una categoría</option>
+                        {% for c in categorias %}
+                            <option value="{{ c.id }}">{{ c.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            {% if current_user.rol == "admin" %}
+            <div class="mb-3">
+                <label class="form-label">Asignar a usuario</label>
+                <select name="usuario_id" class="form-select">
+                    {% for u in usuarios %}
+                        <option value="{{ u.id }}">{{ u.nombre }} - {{ u.email }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+
+            <button class="btn btn-warning text-dark fw-semibold">Guardar</button>
+            <a href="{{ url_for('tickets.listar_tickets') }}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
