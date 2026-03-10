@@ -7,10 +7,10 @@ Permite administrar usuarios, categorías y tickets, con control de acceso por r
 
 ## 👥 Integrantes
 
-* **Yisus DuCouteau** — Líder del proyecto / Backend principal / Integración
-* **Madeleine** — Módulo de Usuarios
-* **Elionai** — Módulo de Tickets
-* **Gabo** — Módulo de Categorías
+* **Jesus Murillo** — Líder del proyecto / Backend principal / Integración
+* **Madeleine Vargas** — Módulo de Usuarios
+* **Elionai Paredes** — Módulo de Tickets
+* **Angel Mamani** — Módulo de Categorías
 
 ---
 
@@ -55,13 +55,6 @@ cd Examen-parcial-2-Grupo-6
 ```bash
 python -m venv venv
 venv\Scripts\activate
-```
-
-**Mac / Linux**
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
 ```
 
 ---
