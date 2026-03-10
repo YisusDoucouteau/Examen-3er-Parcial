@@ -1,9 +1,26 @@
-<h2>Editar Categoria</h2>
+{% extends "base.html" %}
+{% block title %}Editar Categoría{% endblock %}
 
-<form method="POST">
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <h2 class="text-warning mb-4">Editar Categoría</h2>
 
-<input type="text" name="nombre" value="{{categoria.nombre}}">
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" name="nombre" class="form-control"
+                       value="{{ categoria.nombre }}" required>
+            </div>
 
-<button type="submit">Actualizar</button>
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea name="descripcion" class="form-control" rows="3">{{ categoria.descripcion if categoria.descripcion else '' }}</textarea>
+            </div>
 
-</form>
+            <button type="submit" class="btn btn-warning">Actualizar</button>
+            <a href="{{ url_for('categorias.listar_categorias') }}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
