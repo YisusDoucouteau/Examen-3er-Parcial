@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Dashboard IA{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+        <h2 class="mb-4">Dashboard Inteligente</h2>
+
+        <div class="row text-center mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="border rounded p-3 bg-light">
+                    <h5>Total</h5>
+                    <p class="fs-4 fw-bold">{{ total }}</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="border rounded p-3 bg-light">
+                    <h5>Abiertos</h5>
+                    <p class="fs-4 fw-bold text-primary">{{ abiertos }}</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="border rounded p-3 bg-light">
+                    <h5>En proceso</h5>
+                    <p class="fs-4 fw-bold text-warning">{{ en_proceso }}</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="border rounded p-3 bg-light">
+                    <h5>Cerrados</h5>
+                    <p class="fs-4 fw-bold text-success">{{ cerrados }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <canvas id="graficoCategorias"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <h3 class="mb-3">Análisis generado por IA</h3>
+        <p>{{ analisis_ia }}</p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const categorias = {{ categorias | tojson }};
+const labels = categorias.map(item => item[0]);
+const values = categorias.map(item => item[1]);
+
+const ctx = document.getElementById('graficoCategorias');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Tickets por categoría',
+            data: values,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+{% endblock %}
