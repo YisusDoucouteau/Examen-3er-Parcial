@@ -45,15 +45,12 @@
         <p>{{ analisis_ia }}</p>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 const categorias = {{ categorias | tojson }};
 const labels = categorias.map(item => item[0]);
 const values = categorias.map(item => item[1]);
-
 const ctx = document.getElementById('graficoCategorias');
-
 new Chart(ctx, {
     type: 'bar',
     data: {
