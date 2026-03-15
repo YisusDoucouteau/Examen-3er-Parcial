@@ -50,16 +50,18 @@ def create_app():
     from app.routes.usuarios import usuarios_bp
     from app.routes.categorias import categorias_bp
     from app.routes.tickets import tickets_bp
+    from app.routes.chatbot import chatbot_bp
+    from app.routes.dashboard import dashboard_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(usuarios_bp, url_prefix="/usuarios")
     app.register_blueprint(categorias_bp, url_prefix="/categorias")
     app.register_blueprint(tickets_bp, url_prefix="/tickets")
+    app.register_blueprint(chatbot_bp)
+    app.register_blueprint(dashboard_bp)
 
     @app.route("/")
     def index():
         return render_template("index.html")
-
-    
 
     return app

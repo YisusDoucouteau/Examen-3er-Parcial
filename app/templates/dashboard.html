@@ -4,53 +4,68 @@
 {% block content %}
 <div class="card shadow-sm border-0 mb-4">
     <div class="card-body">
-        <h2 class="mb-4">Dashboard Inteligente</h2>
+        <h2 class="mb-4 text-primary">Dashboard Inteligente</h2>
+
+        {% if alerta %}
+        <div class="alert alert-info shadow-sm border-0 mb-4">
+            <strong>Alerta inteligente:</strong> {{ alerta }}
+        </div>
+        {% endif %}
 
         <div class="row text-center mb-4">
             <div class="col-md-3 mb-3">
-                <div class="border rounded p-3 bg-light">
-                    <h5>Total</h5>
-                    <p class="fs-4 fw-bold">{{ total }}</p>
+                <div class="border rounded p-3 bg-light h-100">
+                    <h5 class="text-muted">Total</h5>
+                    <p class="fs-3 fw-bold mb-0">{{ total }}</p>
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="border rounded p-3 bg-light">
-                    <h5>Abiertos</h5>
-                    <p class="fs-4 fw-bold text-primary">{{ abiertos }}</p>
+                <div class="border rounded p-3 bg-light h-100">
+                    <h5 class="text-muted">Abiertos</h5>
+                    <p class="fs-3 fw-bold text-primary mb-0">{{ abiertos }}</p>
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="border rounded p-3 bg-light">
-                    <h5>En proceso</h5>
-                    <p class="fs-4 fw-bold text-warning">{{ en_proceso }}</p>
+                <div class="border rounded p-3 bg-light h-100">
+                    <h5 class="text-muted">En proceso</h5>
+                    <p class="fs-3 fw-bold text-warning mb-0">{{ en_proceso }}</p>
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="border rounded p-3 bg-light">
-                    <h5>Cerrados</h5>
-                    <p class="fs-4 fw-bold text-success">{{ cerrados }}</p>
+                <div class="border rounded p-3 bg-light h-100">
+                    <h5 class="text-muted">Cerrados</h5>
+                    <p class="fs-3 fw-bold text-success mb-0">{{ cerrados }}</p>
                 </div>
             </div>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-5">
+            <h4 class="mb-3">Distribución de tickets por categoría</h4>
             <canvas id="graficoCategorias"></canvas>
+        </div>
+
+        <div class="mt-5">
+            <h4 class="mb-3">Estado actual de los tickets</h4>
+            <canvas id="graficoEstados"></canvas>
         </div>
     </div>
 </div>
 
 <div class="card shadow-sm border-0">
     <div class="card-body">
-        <h3 class="mb-3">Análisis generado por IA</h3>
-        <p>{{ analisis_ia }}</p>
+        <h3 class="mb-3 text-primary">Análisis generado por IA</h3>
+        <p class="mb-0">{{ analisis_ia }}</p>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const categorias = {{ categorias | tojson }};
+const categorias = {{ categorias | tojson | safe }};
 const labels = categorias.map(item => item[0]);
 const values = categorias.map(item => item[1]);
+
 const ctx = document.getElementById('graficoCategorias');
+
 new Chart(ctx, {
     type: 'bar',
     data: {
@@ -58,14 +73,66 @@ new Chart(ctx, {
         datasets: [{
             label: 'Tickets por categoría',
             data: values,
+            backgroundColor: [
+                '#0d6efd',
+                '#198754',
+                '#ffc107',
+                '#dc3545',
+                '#6f42c1',
+                '#20c997'
+            ],
+            borderColor: [
+                '#0a58ca',
+                '#146c43',
+                '#cc9a06',
+                '#b02a37',
+                '#59359c',
+                '#198754'
+            ],
+            borderWidth: 1,
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true
+            },
+            title: {
+                display: true,
+                text: 'Tickets por categoría'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    precision: 0
+                }
+            }
+        }
+    }
+});
+
+const ctxEstados = document.getElementById('graficoEstados');
+
+new Chart(ctxEstados, {
+    type: 'pie',
+    data: {
+        labels: ['Abiertos', 'En proceso', 'Cerrados'],
+        datasets: [{
+            data: [{{ abiertos }}, {{ en_proceso }}, {{ cerrados }}],
+            backgroundColor: ['#0d6efd', '#ffc107', '#198754'],
             borderWidth: 1
         }]
     },
     options: {
         responsive: true,
-        scales: {
-            y: {
-                beginAtZero: true
+        plugins: {
+            title: {
+                display: true,
+                text: 'Estado actual de los tickets'
             }
         }
     }
