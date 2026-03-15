@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify
 from flask_login import login_required
 from sqlalchemy import func
 
@@ -59,3 +59,41 @@ def dashboard():
         analisis_ia=analisis_ia,
         alerta=alerta
     )
+
+
+@dashboard_bp.route("/dashboard/recomendacion")
+@login_required
+def recomendacion_dashboard():
+    total = Ticket.query.count()
+    abiertos = Ticket.query.filter_by(estado="abierto").count()
+    en_proceso = Ticket.query.filter_by(estado="en proceso").count()
+    cerrados = Ticket.query.filter_by(estado="cerrado").count()
+
+    categorias_query = (
+        db.session.query(Categoria.nombre, func.count(Ticket.id))
+        .join(Ticket)
+        .group_by(Categoria.id)
+        .order_by(func.count(Ticket.id).desc())
+        .all()
+    )
+
+    categorias = [[nombre, cantidad] for nombre, cantidad in categorias_query]
+
+    contexto = f"""
+    Eres un asistente de gestión de soporte técnico.
+
+    Datos actuales del sistema:
+    - Total de tickets: {total}
+    - Tickets abiertos: {abiertos}
+    - Tickets en proceso: {en_proceso}
+    - Tickets cerrados: {cerrados}
+    - Tickets por categoría: {categorias}
+
+    Genera una recomendación breve, práctica y profesional sobre qué debería hacerse a continuación
+    para mejorar la gestión del soporte técnico.
+    Responde en un solo párrafo corto, sin listas y sin markdown.
+    """
+
+    recomendacion = generar_respuesta_ia(contexto)
+
+    return jsonify({"recomendacion": recomendacion})

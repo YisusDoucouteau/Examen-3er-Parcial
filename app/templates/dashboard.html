@@ -58,6 +58,72 @@
     </div>
 </div>
 
+<!-- Asistente IA flotante -->
+<div id="ai-helper">
+    <button id="ai-button" onclick="toggleAI()" title="Asistente IA">
+        🤖
+    </button>
+
+    <div id="ai-panel">
+        <div class="ai-header">Asistente IA</div>
+        <div id="ai-content">
+            Presiona el botón para obtener una recomendación inteligente sobre el estado actual del sistema.
+        </div>
+        <button class="btn btn-sm btn-primary mt-3" onclick="obtenerRecomendacionIA()">
+            Generar recomendación
+        </button>
+    </div>
+</div>
+
+<style>
+#ai-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #0d6efd;
+    color: white;
+    font-size: 26px;
+    border: none;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#ai-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+#ai-panel {
+    position: fixed;
+    bottom: 105px;
+    right: 30px;
+    width: 320px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    padding: 16px;
+    display: none;
+    z-index: 1000;
+}
+
+.ai-header {
+    font-weight: 700;
+    color: #0d6efd;
+    margin-bottom: 10px;
+}
+
+#ai-content {
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 70px;
+}
+</style>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 const categorias = {{ categorias | tojson | safe }};
@@ -137,5 +203,23 @@ new Chart(ctxEstados, {
         }
     }
 });
+
+function toggleAI() {
+    const panel = document.getElementById("ai-panel");
+    panel.style.display = panel.style.display === "block" ? "none" : "block";
+}
+
+async function obtenerRecomendacionIA() {
+    const caja = document.getElementById("ai-content");
+    caja.innerHTML = "Generando recomendación...";
+
+    try {
+        const response = await fetch("/dashboard/recomendacion");
+        const data = await response.json();
+        caja.innerHTML = `<strong>IA:</strong> ${data.recomendacion}`;
+    } catch (error) {
+        caja.innerHTML = "No se pudo generar la recomendación en este momento.";
+    }
+}
 </script>
 {% endblock %}

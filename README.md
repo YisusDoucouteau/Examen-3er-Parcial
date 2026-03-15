@@ -1,44 +1,66 @@
-# 🛠️ Sistema de Soporte Técnico
-Aplicación web desarrollada con Flask para la gestión de incidencias de soporte técnico dentro de una organización.
-Permite administrar usuarios, categorías y tickets, con control de acceso por roles y exportación de reportes.
+# 🛠️ Sistema de Soporte Técnico con IA
+
+Aplicación web desarrollada con **Flask** para la gestión de incidencias de soporte técnico dentro de una organización.
+
+El sistema permite administrar **usuarios, categorías y tickets**, e integra **Inteligencia Artificial** para análisis de datos y consultas mediante lenguaje natural.
+
 ---
+
 ## 👥 Integrantes
-* **Jesus Murillo** — Líder del proyecto / Backend principal / Integración
-* **Madeleine Vargas** — Módulo de Usuarios
-* **Elionai Paredes** — Módulo de Tickets
-* **Angel Mamani** — Módulo de Categorías
+
+- **Jesus Murillo** — Líder del proyecto / Backend / Integración IA  
+- **Madeleine Vargas** — Módulo de Usuarios  
+- **Elionai Paredes** — Módulo de Tickets  
+- **Angel Mamani** — Módulo de Categorías  
+
 ---
-## 🎯 Objetivo del sistema
-implementar ia mediante api y generar dashboard 
-Visualización de datos
+
+## 🎯 Objetivo
+
+Extender el sistema desarrollado previamente integrando **Inteligencia Artificial** para:
+
+- Consultar información mediante un **chatbot**
+- Analizar datos del sistema en un **dashboard inteligente**
+
+---
+
+## ⚙️ Tecnologías utilizadas
+
+**Backend**
+- Python
+- Flask
+- SQLAlchemy
+- MySQL
+
+**Visualización de datos**
 - Chart.js
 
-Inteligencia Artificial
+**Inteligencia Artificial**
 - Groq API
 - Modelo Llama 3
 
-Control de versiones
+**Control de versiones**
 - Git
 - GitHub
 
 ---
 
-# Funcionalidades del sistema
+## 🚀 Funcionalidades del sistema
 
-## Gestión de usuarios
+### Gestión de Usuarios
 - Crear usuarios
 - Listar usuarios
 - Editar usuarios
 - Eliminar usuarios
 - Control de roles (admin / usuario)
 
-## Gestión de categorías
+### Gestión de Categorías
 - Crear categorías
 - Listar categorías
 - Editar categorías
 - Eliminar categorías
 
-## Gestión de tickets
+### Gestión de Tickets
 - Crear tickets
 - Listar tickets
 - Editar tickets
@@ -47,41 +69,29 @@ Control de versiones
 
 ---
 
-# Chatbot inteligente
+## 🤖 Chatbot Inteligente
 
-El sistema incluye un chatbot que permite interactuar con la base de datos mediante preguntas en lenguaje natural.
+El sistema incluye un **chatbot conectado a la base de datos** que permite hacer consultas usando lenguaje natural.
 
-Ejemplos de preguntas:
+Ejemplos:
 
 - ¿Cuántos tickets hay?
-- ¿Cuántos tickets abiertos hay?
+- ¿Cuántos tickets abiertos existen?
 - ¿Qué categorías existen?
-- ¿Cuál es la categoría con más tickets?
+- ¿Cuál es la categoría con más incidencias?
 
-El chatbot:
-- interpreta la pregunta del usuario
-- consulta la base de datos
-- genera una respuesta utilizando un modelo de IA
+El chatbot interpreta la pregunta, consulta la base de datos y genera una respuesta utilizando IA.
 
 ---
 
-# Dashboard inteligente
+## 📊 Dashboard Inteligente
 
-El sistema incluye un dashboard que analiza los datos del sistema.
-
-El dashboard muestra:
+El dashboard muestra estadísticas del sistema como:
 
 - Total de tickets
-- Tickets abiertos
-- Tickets en proceso
-- Tickets cerrados
+- Tickets abiertos, en proceso y cerrados
+- Distribución de tickets por categoría
 
-También incluye:
-
-- gráfico de distribución por categorías
-- gráfico del estado de tickets
-- análisis automático generado por IA sobre los datos del sistema
-
-Esto permite interpretar la información del sistema de manera más clara.
+Además incluye **análisis automático generado por IA** para interpretar los datos del sistema.
 
 ---
