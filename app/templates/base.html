@@ -11,7 +11,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">Soporte Técnico</a>
+            <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">🛠️ Soporte Técnico</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -22,29 +22,42 @@
                     {% if current_user.is_authenticated %}
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('index') }}">Inicio</a>
+                            <a class="nav-link d-flex align-items-center" href="{{ url_for('index') }}">
+                                🏠 <span class="ms-1">Inicio</span>
+                            </a>
                         </li>
 
                         {% if current_user.rol == "admin" %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('usuarios.listar_usuarios') }}">Usuarios</a>
+                            <a class="nav-link d-flex align-items-center" href="{{ url_for('usuarios.listar_usuarios') }}">
+                                👤 <span class="ms-1">Usuarios</span>
+                            </a>
                         </li>
                         {% endif %}
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('categorias.listar_categorias') }}">Categorías</a>
+                            <a class="nav-link d-flex align-items-center" href="{{ url_for('categorias.listar_categorias') }}">
+                                🗂️ <span class="ms-1">Categorías</span>
+                            </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('tickets.listar_tickets') }}">Tickets</a>
+                            <a class="nav-link d-flex align-items-center" href="{{ url_for('tickets.listar_tickets') }}">
+                                🎫 <span class="ms-1">Tickets</span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-    <a class="nav-link" href="{{ url_for('chatbot.chatbot_page') }}">Chatbot IA</a>
-</li>
 
-<li class="nav-item">
-    <a class="nav-link" href="{{ url_for('dashboard.dashboard') }}">Dashboard IA</a>
-</li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="{{ url_for('chatbot.chatbot_page') }}">
+                                🤖 <span class="ms-1">Chatbot IA</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="{{ url_for('dashboard.dashboard') }}">
+                                📊 <span class="ms-1">Dashboard IA</span>
+                            </a>
+                        </li>
 
                         <li class="nav-item">
                             <span class="nav-link text-warning fw-semibold">
@@ -53,18 +66,26 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+                            <a class="nav-link text-light d-flex align-items-center" href="{{ url_for('auth.logout') }}">
+                                🚪 <span class="ms-1">Cerrar sesión</span>
+                            </a>
                         </li>
 
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('index') }}">Inicio</a>
+                            <a class="nav-link d-flex align-items-center" href="{{ url_for('index') }}">
+                                🏠 <span class="ms-1">Inicio</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                            <a class="nav-link d-flex align-items-center" href="{{ url_for('auth.login') }}">
+                                🔑 <span class="ms-1">Login</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('auth.register') }}">Registro</a>
+                            <a class="nav-link d-flex align-items-center" href="{{ url_for('auth.register') }}">
+                                📝 <span class="ms-1">Registro</span>
+                            </a>
                         </li>
                     {% endif %}
                 </ul>
